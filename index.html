@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playbook - Robot Héroe Avanzado - Sesión 5: ¡Integrando los Sistemas del Héroe!</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; color: #333; line-height: 1.6; }
+        .container { max-width: 1000px; margin: auto; padding: 20px; }
+        .header { background-color: #ffa500; color: white; text-align: center; padding: 10px; } /* Orange Accent */
+        .activity { margin-bottom: 20px; }
+        .banner {
+            background-color: #ffa500; /* Orange Accent */
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            margin-bottom: 10px;
+            font-weight: bold;
+            /* Added Flexbox for side-by-side layout */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        /* Use details/summary for accordions */
+        details > summary {
+            list-style: none; /* Remove default triangle */
+        }
+        details > summary::-webkit-details-marker {
+            display: none; /* Remove default triangle for Chrome/Safari */
+        }
+        details > summary::marker {
+             display: none; /* Remove default triangle for Firefox */
+        }
+        /* Custom marker logic (optional) */
+        /*
+         details > summary:before {
+            content: '▶ ';
+            margin-right: 5px;
+         }
+         details[open] > summary:before {
+            content: '▼ ';
+         }
+        */
+        .content { display: block; padding: 10px; border: 1px solid #ddd; margin-top: -10px; margin-bottom: 10px; border-top: none;} /* Ensure content is visible by default */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+            vertical-align: top;
+        }
+        span[style*="color: red;"] { /* Keep red span for emphasis */
+            font-weight: bold;
+        }
+         ul, ol {
+            margin-top: 0;
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .time-title { margin-bottom: 20px; text-align: center; font-size: 1.2em; color: #555;}
+        /* Style for Kanban icons */
+        .kanban-icon { font-size: 1.2em; margin: 0 2px; }
+        .kanban-todo { color: #f0ad4e; } /* Yellow/Orange for To Do */
+        .kanban-doing { color: #5bc0de; } /* Blue for Doing */
+        .kanban-test { color: #d9534f; } /* Red for Test */
+        .kanban-done { color: #5cb85c; } /* Green for Done */
+
+        /* Span styles for title and time in banner */
+        .activity-title {
+            flex-grow: 1; /* Allows title to take available space */
+            padding-right: 10px; /* Add some space between title and time */
+        }
+        .activity-time {
+            white-space: nowrap; /* Prevents time from wrapping */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Playbook - Robot Héroe Avanzado - Sesión 5: ¡Integrando los Sistemas del Héroe!</h1>
+    </div>
+    <div class="container">
+        <h2 class="time-title">Tiempo efectivo de clase: 40 minutos</h2>
+
+        <!-- Resumen de Sesión -->
+        <details id="activity-0" class="activity">
+            <summary class="banner">
+                <span class="activity-title">📝 Resumen de Sesión</span>
+                <span class="activity-time"></span>
+            </summary>
+            <div class="content">
+                <table>
+                    <tr>
+                        <td style="width: 50%; padding: 10px; border-right: 1px solid #ddd;">
+                            <strong>🎯 Objetivo de la Sesión:</strong>
+                            <ul>
+                                <li>Programar la lógica que conecta las diferentes partes del núcleo construidas en Sesiones 2-4.</li>
+                                <li>Asegurar que las funciones del núcleo puedan funcionar juntas de manera coordinada.</li>
+                                <li>Tomar decisiones sobre la prioridad y lógica condicional (ej: if/else) para la interacción de sensores/funciones.</li>
+                            </ul>
+                            <strong>⏱️ Duración Estimada:</strong> 40 minutos.
+                        </td>
+                        <td style="width: 50%; padding: 10px;">
+                            <strong>🔑 Entregable Clave:</strong>
+                            <ul>
+                                <li>Código principal de integración escrito por el Ingeniero/a.</li>
+                                <li>Tarea "Integrar Núcleo" movida a "Listo para Probar" (🔬).</li>
+                                <li>Escenarios de prueba que requieren interacción de sensores/funciones preparados por el Tester.</li>
+                            </ul>
+                            <strong>🛠️ Materiales Específicos:</strong>
+                             <ul>
+                                <li>Proyector o pantalla interactiva.</li>
+                                <li>Presentación de diapositivas (Diapositivas 1-5 propuestas).</li>
+                                <li>Tableros Kanban de cada equipo (actualizados de S4, idealmente con F1 y F2 en 🔬).</li>
+                                <li>Computadoras con software de programación, código de F1 y F2 del núcleo.</li>
+                                <li>Robots/kits de construcción ensamblados con componentes de F1 y F2.</li>
+                                <li>Notas/documentación de sesiones anteriores, especialmente S1 (diseño) y S4 (anticipación de integración).</li>
+                             </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </details>
+
+        <!-- Desarrollo de la Sesión -->
+
+        <!-- Actividad 1: ¡Plan de Integración de Sistemas! -->
+        <details id="activity-1" class="activity">
+            <summary class="banner">
+                 <span class="activity-title">🔗 Actividad 1: ¡Plan de Integración de Sistemas!</span>
+                 <span class="activity-time">⏰ Tiempo: 5 minutos</span>
+            </summary>
+            <div class="content">
+                <table>
+                    <tr>
+                        <th style="width: 50%;">Acción</th>
+                        <th style="width: 50%;">Diálogo del Maestro</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Paso 1 (1 min):</strong> Iniciar la sesión enfocada en la integración.
+                            <br><em>(<strong>Proyectar Diapositiva 1:</strong> Título Sesión 5 (Avanzado) + Objetivo: "¡Integrando los Sistemas del Héroe! Objetivo: Programar la lógica que conecta las partes del núcleo").</em>
+                        </td>
+                        <td>
+                            "¡Equipos, llegamos a la Sesión 5: Integrando los Sistemas del Héroe! Hoy es un día clave. Tenemos las piezas del núcleo construidas (esperemos que listas para probar individualmente), ¡y ahora vamos a conectarlas! Haremos que nuestro robot pueda usar sus diferentes habilidades juntas."
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Paso 2 (4 min):</strong> Facilitar la discusión técnica sobre la estrategia de integración, liderada por el Arquitecto/a T.
+                            <br><em>(<strong>Proyectar Diapositiva 2:</strong> Plan de Integración - Preguntas Clave (Lidera Arq. T. 📐): ¿Cómo combinar lecturas (ej: sigue-líneas y ultrasónico)? ¿Qué bloque condicional (if/else if) usar? ¿Cuál tiene prioridad? + Diagrama simple mostrando dos sensores/funciones conectándose a un bloque de decisión).</em>
+                            <br>Asegurarse de que cada equipo defina una estrategia clara de cómo combinar sus funciones núcleo.
+                        </td>
+                        <td>
+                            "Antes de escribir código, necesitamos un plan. <strong>Arquitecto/a T. (📐)</strong>, lidera esta discusión técnica crucial con tu equipo:"
+                            <br><br>
+                            "1. <strong>¿Cómo vamos a combinar las funciones núcleo?</strong> Por ejemplo, si tenemos 'seguir línea' (F1) y 'detectar obstáculo con ultrasonido' (F2), ¿cómo interactúan? ¿El robot debe hacer ambas cosas a la vez?"
+                            <br>
+                            "2. <strong>¿Qué lógica condicional usaremos?</strong> ¿Necesitamos un bloque `if/else if` para decidir qué hacer? (Ej: `SI` detecto línea, `ENTONCES` seguirla, `PERO SI ADEMÁS` detecto obstáculo cerca, `ENTONCES` parar o esquivar)."
+                            <br>
+                            "3. <strong>¿Qué tiene prioridad?</strong> Si el robot está siguiendo la línea y de repente ve un obstáculo, ¿qué es más importante: seguir la línea o evitar el choque?"
+                            <br><br>
+                            "Tienen 4 minutos para definir su estrategia de integración. ¡Decisiones importantes, equipo!" <em>(Circular y apoyar la discusión técnica).</em>
+                            "¿Tiene sentido esa lógica condicional? ¿Cubre los casos principales?"
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </details>
+
+        <!-- Actividad 2: ¡Codificando la Conexión Maestra! -->
+        <details id="activity-2" class="activity">
+            <summary class="banner">
+                 <span class="activity-title">⌨️ Actividad 2: ¡Codificando la Conexión Maestra!</span>
+                 <span class="activity-time">⏰ Tiempo: 30 minutos</span>
+            </summary>
+            <div class="content">
+                <table>
+                    <tr>
+                        <th style="width: 50%;">Acción</th>
+                        <th style="width: 50%;">Diálogo del Maestro</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Paso 1 (3 min):</strong> Explicar las tareas de Ingeniero/a y Tester durante la codificación de la integración.
+                            <br><em>(<strong>Proyectar Diapositiva 3:</strong> Codificando la Conexión - Roles: Ingeniero 💻: Escribe código principal (main loop) que llama funciones núcleo y toma decisiones (if/else). Tester 🧪: Prepara escenarios de prueba de interacción (ej: línea con obstáculo encima)).</em>
+                            <br>Añadir (si no existe) la tarea "Integrar Núcleo" al Kanban y moverla a "Haciendo" ⚙️.
+                        </td>
+                        <td>
+                            "¡Plan listo! Ahora, ¡a codificar esa conexión maestra! Hemos añadido (o asegúrense de añadir) una nueva tarea en su Kanban llamada 'Integrar Núcleo'. ¡Muévanla ahora a <strong class='kanban-icon kanban-doing'>⚙️ Haciendo</strong>!"
+                            <br><br>
+                            "Durante los próximos 30 minutos:"
+                            <br><br>
+                            "▶️ <strong>Ingeniero/a (💻):</strong> ¡Tu misión es escribir el código principal! Este código (a menudo en el bucle principal o 'main loop') será el 'director de orquesta'. Debe:
+                            <br>   - Llamar a las funciones del núcleo que ya programaste (ej: `leer_sigue_lineas()`, `leer_ultrasonico()`).
+                            <br>   - Usar la lógica condicional (`if/else if`) que decidieron en el plan para tomar decisiones basadas en los valores de ambos sensores (u otras condiciones).
+                            <br>   - Controlar los motores según esas decisiones."
+                            <br>
+                            "▶️ <strong>Tester (🧪):</strong> ¡Prepara los escenarios de prueba más complejos hasta ahora! Necesitas diseñar pruebas que <span style='color: red;'>requieran la interacción</span> de las funciones núcleo. Por ejemplo: ¿Qué pasa si pones un obstáculo justo encima de la línea que el robot está siguiendo? ¿Qué pasa si la línea se acaba y hay un objeto delante? ¡Piensa en casos donde ambas funciones deben trabajar juntas y prepara cómo probarlos!"
+                            <br><br>
+                            "Arquitecto/a T. (📐), apoya al Ingeniero/a con la estructura del código principal y asegúrate de que la lógica de decisión sea robusta."
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Paso 2 (25 min):</strong> Facilitar el trabajo de codificación y preparación de pruebas.
+                            <br>Circular activamente. Apoyar al Ingeniero/a con la estructura del código de integración (bucles, condicionales).
+                            <br>Ayudar al Tester a imaginar y preparar escenarios de prueba complejos y realistas.
+                            <br>Fomentar la consulta entre Ingeniero/a y Arq. T. sobre la implementación de la lógica de decisión.
+                        </td>
+                        <td>
+                            <em>(Mientras circulas):</em>
+                            "Ingeniero/a, ¿cómo estás estructurando ese bucle principal? ¿Dónde vas a poner la lógica `if/else` que decidieron?"
+                            "Tester, ¡ese escenario de 'obstáculo en curva' suena interesante! ¿Cómo lo vas a montar para la prueba?"
+                            "Arquitecto/a T., ¿la lógica de prioridad que definieron se está reflejando bien en el código del Ingeniero/a?"
+                            "Recuerden, el objetivo es que el robot pueda tomar decisiones basadas en múltiples 'sentidos' o funciones."
+                            "¡Están construyendo la inteligencia del Héroe!"
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>
+                            <strong>Paso 3 (2 min):</strong> Recordar el Kanban Flow para la tarea de integración.
+                            <br><em>(<strong>Proyectar Diapositiva 4:</strong> Kanban Flow: ¡Integración a Probar! - Flecha de ⚙️ Haciendo ("Integrar Núcleo") a 🔬 Listo para Probar. Texto: "Ingeniero/a: Al finalizar código de integración -> Mover tarea 'Integrar Núcleo' a Listo para Probar 🔬").</em>
+                        </td>
+                        <td>
+                            "¡Atención Ingenieros/as! Cuando sientan que el código principal que conecta las funciones del núcleo está listo para una primera prueba (puede que no sea perfecto, ¡pero conecta las piezas!)..."
+                            <br><br>
+                            "¡Muevan la tarjeta 'Integrar Núcleo' de <strong class='kanban-icon kanban-doing'>⚙️ Haciendo</strong> a <strong class='kanban-icon kanban-test'>🔬 Listo para Probar</strong>!"
+                            <br><br>
+                            "Tester, ¡prepárate para ejecutar esos escenarios de interacción en la próxima sesión!"
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </details>
+
+        <!-- Actividad 3: ¡Listos para Pruebas Integradas! -->
+        <details id="activity-3" class="activity">
+            <summary class="banner">
+                 <span class="activity-title">✅ Actividad 3: ¡Listos para Pruebas Integradas!</span>
+                 <span class="activity-time">⏰ Tiempo: 5 minutos</span>
+            </summary>
+            <div class="content">
+                <table>
+                     <tr>
+                        <th style="width: 50%;">Acción</th>
+                        <th style="width: 50%;">Diálogo del Maestro</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Paso 1 (3 min):</strong> Revisión final del código de integración y estado del Kanban.
+                            <br><em>(<strong>Proyectar Diapositiva 5:</strong> ¿Listos para Pruebas Integradas? - Kanban al final de S5. Foco en la tarea "Integrar Núcleo" en 🔬. Pregunta: ¿Código de integración listo para probar? ¿Escenarios de Tester preparados?).</em>
+                            <br>Cada equipo confirma si la tarea de integración está en 🔬 y si el Tester tiene escenarios listos.
+                        </td>
+                        <td>
+                            "¡Última revisión del día, equipos! Miremos el estado de la integración."
+                            <br><br>
+                            "Revisen su Kanban:"
+                            <br>
+                            "1. ¿Está la tarea 'Integrar Núcleo' en <strong class='kanban-icon kanban-test'>🔬 Listo para Probar</strong>?"
+                            <br>
+                            "2. Ingeniero/a, ¿el código principal que llama a las funciones y toma decisiones está escrito?"
+                            <br>
+                            "3. Tester, ¿tienes preparados los escenarios de prueba que requieren interacción (ej: línea con obstáculo)?"
+                            <br><br>
+                            "Confirmen rápidamente en equipo." <em>(Dar 1-2 minutos para la confirmación).</em>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>
+                            <strong>Paso 2 (2 min):</strong> Cierre de la sesión y anticipación de la Sesión 6 (Prueba Total del Núcleo).
+                        </td>
+                        <td>
+                            "¡Excelente trabajo conectando los sistemas del Héroe! Hoy han escrito el 'cerebro' que permite a su robot usar sus diferentes habilidades juntas."
+                            <br><br>
+                            "La próxima sesión, Sesión 6, será la '¡Prueba Total del Núcleo! – Verificando la Sinergia'. Los Testers (🧪) ejecutarán esos escenarios complejos que prepararon hoy para ver si el núcleo integrado funciona de forma fiable y toma las decisiones correctas. ¡Veremos si la combinación de poderes funciona!"
+                            <br><br>
+                            "¡Guarden ese código de integración con cuidado! ¡Nos vemos para la prueba de fuego del núcleo!"
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </details>
+
+    </div> <!-- Fin del container -->
+</body>
+</html>
